@@ -9,6 +9,8 @@ import { Toaster } from "react-hot-toast";
 function App() {
   const { setUserAuth, clearAuth } = authStore();
   const navigate = useNavigate();
+
+  //refreshing access token on reloading...
   useEffect(() => {
     const refreshAccessToken = async () => {
       try {

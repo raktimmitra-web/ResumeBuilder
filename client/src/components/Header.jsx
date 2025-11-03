@@ -11,6 +11,8 @@ import toast from "react-hot-toast";
 const Header = () => {
   const navigate = useNavigate();
   const { user } = authStore();
+
+  //handling logout function
   const handleLogout = async () => {
     try {
       const response = await logout();

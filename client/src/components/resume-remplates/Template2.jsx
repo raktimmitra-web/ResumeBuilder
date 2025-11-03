@@ -26,14 +26,14 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
             {/* Personal Info */}
             {personalInfo && (
               <div>
-                <h1 className="text-3xl font-bold mb-1">
+                <h1 className="text-3xl font-bold mb-1 break-words whitespace-pre-wrap">
                   {personalInfo.firstName} {personalInfo.lastName}
                 </h1>
-                <p className="text-gray-600 mb-4 text-sm">
+                <p className="text-gray-600 mb-4 text-sm break-words whitespace-pre-wrap">
                   {personalInfo.address}
                 </p>
 
-                <div className="text-sm space-y-1">
+                <div className="text-sm space-y-1 break-words whitespace-pre-wrap">
                   {personalInfo.email && <p>Email: {personalInfo.email}</p>}
                   {personalInfo.phone && <p>Phone: {personalInfo.phone}</p>}
                 </div>
@@ -137,7 +137,7 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
                 <h2 className="text-xl font-semibold border-b-2 border-gray-300 mb-2">
                   Profile Summary
                 </h2>
-                <p className="text-gray-700 leading-relaxed">{summary}</p>
+                <p className="text-gray-700 leading-relaxed break-words whitespace-pre-wrap">{summary}</p>
               </section>
             )}
 
@@ -151,10 +151,10 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
                   {experiences.map((exp, idx) => (
                     <div key={idx}>
                       {exp.position && (
-                        <p className="font-semibold text-lg">{exp.position}</p>
+                        <p className="font-semibold text-lg break-words whitespace-pre-wrap">{exp.position}</p>
                       )}
                       {exp.companyName && (
-                        <p className="text-gray-700">{exp.companyName}</p>
+                        <p className="text-gray-700 break-words whitespace-pre-wrap">{exp.companyName}</p>
                       )}
                       {(exp.startDate || exp.endDate) && (
                         <p className="text-sm text-gray-500">
@@ -162,7 +162,7 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
                         </p>
                       )}
                       {exp.description && (
-                        <p className="text-gray-700 mt-1 text-sm">
+                        <p className="text-gray-700 mt-1 text-sm break-words whitespace-pre-wrap">
                           {exp.description}
                         </p>
                       )}
@@ -182,12 +182,12 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
                   {education.map((edu, idx) => (
                     <div key={idx}>
                       {edu.institutionName && (
-                        <p className="font-semibold text-lg">
+                        <p className="font-semibold text-lg break-words whitespace-pre-wrap">
                           {edu.institutionName}
                         </p>
                       )}
                       {(edu.degree || edu.fieldOfStudy) && (
-                        <p className="text-gray-700">
+                        <p className="text-gray-700 break-words whitespace-pre-wrap">
                           {edu.degree}{" "}
                           {edu.fieldOfStudy && `in ${edu.fieldOfStudy}`}
                         </p>
@@ -218,10 +218,10 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
                   {projects.map((proj, idx) => (
                     <div key={idx}>
                       {proj.title && (
-                        <p className="font-semibold text-lg">{proj.title}</p>
+                        <p className="font-semibold text-lg break-words whitespace-pre-wrap">{proj.title}</p>
                       )}
                       {proj.description && (
-                        <p className="text-gray-700">{proj.description}</p>
+                        <p className="text-gray-700 break-words whitespace-pre-wrap">{proj.description}</p>
                       )}
                       {(proj.githubLink || proj.liveLink) && (
                         <div className="text-blue-600 space-x-3 text-sm">
@@ -263,13 +263,13 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
                     {certifications.map((cert, idx) => (
                       <div key={idx}>
                         {cert.title && (
-                          <p className="font-semibold">{cert.title}</p>
+                          <p className="font-semibold break-words whitespace-pre-wrap">{cert.title}</p>
                         )}
                         {cert.provider && (
-                          <p className="text-gray-700">{cert.provider}</p>
+                          <p className="text-gray-700 break-words whitespace-pre-wrap">{cert.provider}</p>
                         )}
                         {cert.year && (
-                          <p className="text-sm text-gray-500">{cert.year}</p>
+                          <p className="text-sm text-gray-500 break-words whitespace-pre-wrap">{cert.year}</p>
                         )}
                       </div>
                     ))}
@@ -281,7 +281,7 @@ const Template2 = React.forwardRef(({ resumeData }, ref) => {
                     {courses.map((course, idx) => (
                       <div key={idx}>
                         {course.title && (
-                          <p className="font-semibold">{course.title}</p>
+                          <p className="font-semibold break-words whitespace-pre-wrap">{course.title}</p>
                         )}
                         {(course.startDate || course.endDate) && (
                           <p className="text-sm text-gray-500">

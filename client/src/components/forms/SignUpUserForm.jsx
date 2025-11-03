@@ -34,11 +34,11 @@ const SignUpUserForm = () => {
       );
       navigate("/");
       toast.success("User Signed In", {
-        duration: 4000,
+        duration: 2000,
       });
     } catch (error) {
       toast.error("Error during Sign In", {
-        duration: 4000,
+        duration: 2000,
       });
       console.log(error);
     }

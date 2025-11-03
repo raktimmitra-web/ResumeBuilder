@@ -14,13 +14,18 @@ import DialogBox from "./DialogBox";
 
 const ResumeSection = () => {
   const [allResumes, setAllResumes] = useState([]);
-  const { setFormData } = resumeStore();
+  const { setFormData, setTemplateData } = resumeStore();
+  const [selectedResumeId, setSelectedResumeId] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
-  const handleResumeDelete = async (resumeId) => {
+
+  //handing resume delete button in dashboard
+  const handleResumeDelete = async () => {
+    console.log("resume id:", selectedResumeId);
     try {
-      const response = await deleteResume(resumeId);
+      const response = await deleteResume(selectedResumeId);
       const updatedResumes = allResumes.filter(
-        (resume) => resume._id !== resumeId
+        (resume) => resume._id !== selectedResumeId
       );
       setAllResumes(updatedResumes);
       toast.success("Resume Deleted Succesfully");
@@ -28,12 +33,23 @@ const ResumeSection = () => {
       console.log(error);
       toast.success("Issue during deletion");
     }
+    finally {
+      setIsDialogOpen(false);
+      setSelectedResumeId(null);
+    }
   };
 
+  const handleOpenDialog = (resumeId) => {
+    setSelectedResumeId(resumeId);
+    setIsDialogOpen(true);
+  };
+  //handling resume download button in dashboard
   const handleResumeDownload = async (resumeId) => {
     let resumeData = await getResumeDataByResumeId(resumeId);
     resumeData = resumeData.data.resume;
+    console.log(resumeData);
     setFormData(resumeData);
+    setTemplateData(resumeData?.template);
     navigate("/downloadPdf");
   };
   useEffect(() => {
@@ -99,18 +115,20 @@ const ResumeSection = () => {
               command="show-modal"
               commandfor="dialog"
               title="Delete"
+              onClick={() => handleOpenDialog(resume._id)}
               className="flex-1 bg-red-500 text-white hover:bg-red-600 transition-colors duration-200 py-2 rounded-md flex items-center justify-center gap-2"
             >
               <Trash2 size={16} />
             </Button>
-            <DialogBox
-              onConfirm={() => {
-                handleResumeDelete(resume._id);
-              }}
-            />
           </div>
         </div>
       ))}
+      {isDialogOpen && (
+        <DialogBox
+          onConfirm={handleResumeDelete}
+          onCancel={() => setIsDialogOpen(false)}
+        />
+      )}
     </div>
   );
 };

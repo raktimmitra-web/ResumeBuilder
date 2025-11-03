@@ -45,6 +45,7 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
     }
   }, [defaultValues, reset]);
 
+  //validating the form step by step
   const validated = async() =>{
         let fieldsToValidate = [];
 
@@ -96,7 +97,7 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
     }
   };
 
-
+  //handling the submit button
   const onSubmit = async (data) => {
     const values = getValues();
     setFormData(values);
@@ -124,7 +125,8 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
       }
     }
   };
-
+  
+  //handing auto-save during editing
   const handleSaveAndDownload = async (data) =>{
     const isValid = await validated ();
     if(isValid && isEditing) {

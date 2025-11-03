@@ -17,13 +17,13 @@ export const login = async (req, res) => {
     return res.status(400).json({ message: "Password Invalid" });
   }
   const accessToken = createAccessToken(user._id);
-  const refreshToken = createRefreshToken(user._id);
+  const refreshToken = createRefreshToken(user._id);  //creating access and refresh token from userId
   res.cookie("refreshToken", refreshToken, {
     secure: true,
     httpOnly: true,
     sameSite: "lax",
     maxAge: 24 * 60 * 60 * 1000,
-  });
+  });  //sending refresh token as cookie
   return res.status(200).json({ message: "User logged In", accessToken, user });
 };
 export const signup = async (req, res) => {
@@ -69,11 +69,11 @@ export const refreshAccessToken = async (req, res) => {
     if (!refreshToken) {
       return res.status(400).json({ message: "No refresh Token is there" });
     }
-    const verified = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const verified = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);  //verifying the refresh token
     if (!verified) {
       return res.status(403).json({ message: "Invalid refresh token" });
     }
-    const accessToken = createAccessToken(verified.id);
+    const accessToken = createAccessToken(verified.id); //new access token generation
     const user = await User.findById(verified.id)
     return res
       .status(200)

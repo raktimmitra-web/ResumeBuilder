@@ -9,6 +9,8 @@ const axiosInstance = axios.create({
   },
 });
 
+
+//intercepting axios request to set bearer token
 axiosInstance.interceptors.request.use((config) => {
   const { accessToken } = authStore.getState();
   if (accessToken) {

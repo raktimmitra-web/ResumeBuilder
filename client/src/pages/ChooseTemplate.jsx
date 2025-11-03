@@ -14,14 +14,11 @@ const ChooseTemplate = () => {
   };
   return (
     <div className="min-h-screen bg-accent flex flex-col items-center justify-start py-20 px-4">
-      {/* Header */}
       <h1 className="text-center text-5xl font-bold  mb-12">
         Choose Your Template
       </h1>
 
-      {/* Template Options */}
       <form className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl w-full">
-        {/* Template 1 */}
         <div className="flex flex-col">
           <label
             className={`cursor-pointer transition-all border-2 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:border-gary-500 ${
@@ -50,8 +47,7 @@ const ChooseTemplate = () => {
           <p className="text-lg font-medium text-gray-70 z-10 text-center">Classic</p>
         </div>
 
-        {/* Template 2 */}
-        <div className="flex flex-col">
+     <div className="flex flex-col">
           <label
           className={`cursor-pointer transition-all border-2 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl hover:border-gray-500 ${
             selectedValue === "template_2"
@@ -78,7 +74,6 @@ const ChooseTemplate = () => {
         </div>
       </form>
 
-      {/* Button */}
       <div className="flex justify-center mt-12">
         <Button
           onClick={handleSubmit}

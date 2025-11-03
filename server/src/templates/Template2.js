@@ -165,9 +165,9 @@ export function generateTemplate2HTML(data) {
                     }
                     ${
                       exp.startDate || exp.endDate
-                        ? `<p style="font-size:13px;color:#6b7280;margin:0;">${exp.startDate || ""} - ${
-                            exp.endDate || "Present"
-                          }</p>`
+                        ? `<p style="font-size:13px;color:#6b7280;margin:0;">${
+                            exp.startDate || ""
+                          } - ${exp.endDate || "Present"}</p>`
                         : ""
                     }
                     ${
@@ -200,16 +200,18 @@ export function generateTemplate2HTML(data) {
                     }
                     ${
                       edu.degree || edu.fieldOfStudy
-                        ? `<p style="color:#374151;margin:0;">${edu.degree || ""} ${
+                        ? `<p style="color:#374151;margin:0;">${
+                            edu.degree || ""
+                          } ${
                             edu.fieldOfStudy ? `in ${edu.fieldOfStudy}` : ""
                           }</p>`
                         : ""
                     }
                     ${
                       edu.startDate || edu.endDate
-                        ? `<p style="font-size:13px;color:#6b7280;margin:0;">${edu.startDate || ""} - ${
-                            edu.endDate || "Present"
-                          }</p>`
+                        ? `<p style="font-size:13px;color:#6b7280;margin:0;">${
+                            edu.startDate || ""
+                          } - ${edu.endDate || "Present"}</p>`
                         : ""
                     }
                     ${
@@ -316,9 +318,9 @@ export function generateTemplate2HTML(data) {
                     }
                     ${
                       course.startDate || course.endDate
-                        ? `<p style="font-size:13px;color:#6b7280;margin:0;">${course.startDate || ""} - ${
-                            course.endDate || "Present"
-                          }</p>`
+                        ? `<p style="font-size:13px;color:#6b7280;margin:0;">${
+                            course.startDate || ""
+                          } - ${course.endDate || "Present"}</p>`
                         : ""
                     }
                   </div>`
