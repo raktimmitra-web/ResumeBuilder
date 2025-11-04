@@ -65,23 +65,22 @@ export const resumeSchema = yup.object().shape({
           String(originalValue).trim() === "" ? null : value
         )
         .optional(),
-      endDate: yup
-        .string()
-        .nullable()
-        .transform((value, originalValue) =>
-          String(originalValue).trim() === "" ? null : value
-        )
-        .test(
-          "is-after-start",
-          "End date should be after start date",
-          function (value) {
-            const { startDate } = this.parent;
-            if (!startDate) return false;
-            if (!value) return true;
-            return new Date(value) > new Date(startDate);
-          }
-        )
-        .optional(),
+      endDate:  yup
+      .string()
+      .nullable()
+      .transform((value, originalValue) =>
+        String(originalValue).trim() === "" ? null : value
+      )
+      .test(
+        "is-after-start",
+        "End date should be after start date",
+        function (value) {
+          const { startDate } = this.parent;
+          if (!startDate || !value) return true;
+          return new Date(value) > new Date(startDate);
+        }
+      )
+      .optional(),
       obtainedPercentage: yup
         .number()
         .nullable()
@@ -103,23 +102,22 @@ export const resumeSchema = yup.object().shape({
           String(originalValue).trim() === "" ? null : value
         )
         .optional(),
-      endDate: yup
-        .string()
-        .nullable()
-        .transform((value, originalValue) =>
-          String(originalValue).trim() === "" ? null : value
-        )
-        .test(
-          "is-after-start",
-          "End date should be after start date",
-          function (value) {
-            const { startDate } = this.parent;
-            if (!startDate) return false;
-            if (!value) return true;
-            return new Date(value) > new Date(startDate);
-          }
-        )
-        .optional(),
+       endDate: yup
+      .string()
+      .nullable()
+      .transform((value, originalValue) =>
+        String(originalValue).trim() === "" ? null : value
+      )
+      .test(
+        "is-after-start",
+        "End date should be after start date",
+        function (value) {
+          const { startDate } = this.parent;
+          if (!startDate || !value) return true;
+          return new Date(value) > new Date(startDate);
+        }
+      )
+      .optional(),
       description: yup.string().optional(),
     })
   ),
@@ -169,23 +167,22 @@ export const resumeSchema = yup.object().shape({
           String(originalValue).trim() === "" ? null : value
         )
         .optional(),
-      endDate: yup
-        .string()
-        .nullable()
-        .transform((value, originalValue) =>
-          String(originalValue).trim() === "" ? null : value
-        )
-        .test(
-          "is-after-start",
-          "End date should be after start date",
-          function (value) {
-            const { startDate } = this.parent;
-            if (!startDate) return false;
-            if ( !value) return true;
-            return new Date(value) > new Date(startDate);
-          }
-        )
-        .optional(),
+      endDate:  yup
+      .string()
+      .nullable()
+      .transform((value, originalValue) =>
+        String(originalValue).trim() === "" ? null : value
+      )
+      .test(
+        "is-after-start",
+        "End date should be after start date",
+        function (value) {
+          const { startDate } = this.parent;
+          if (!startDate || !value) return true;
+          return new Date(value) > new Date(startDate);
+        }
+      )
+      .optional(),
     })
   ),
   skills: yup.array().of(yup.string()).optional(),

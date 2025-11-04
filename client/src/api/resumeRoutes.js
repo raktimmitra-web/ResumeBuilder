@@ -7,7 +7,7 @@ export const submitResume = async (data) => {
     template: templateData,
     title: titleData,
   };
-  console.log(payload);
+  console.log(payload,"payload");
 
   try {
     const response = axiosInstance.post("/resume/add-resume", payload);
@@ -47,6 +47,7 @@ export const getResumeDataByResumeId = async (id)=>{
 }
 
 export const updateResume = async(id,formData)=>{
+  console.log(formData,"formdata")
    try {
     const response = await axiosInstance.put(`/resume/update/${id}`,{formData})
     return response

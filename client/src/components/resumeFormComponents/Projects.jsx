@@ -31,13 +31,13 @@ const Projects = ({ methods }) => {
             }
             className={"bg-blue-500 hover:bg-blue-400"}
           >
-            <CirclePlus />
+            <CirclePlus /> Add Projects
           </Button>
         </div>
       </div>
       {fields.map((item, index) => (
         <div key={index} className=" flex flex-col gap-y-1 my-4">
-          <Button onClick={remove} className="w-fit self-end bg-accent hover:bg-accent cursor-pointer">
+          <Button onClick={()=>remove(index)} className="w-fit self-end bg-accent hover:bg-accent cursor-pointer">
             <CircleX className="text-red-600 hover:bg-red-400 "/>
           </Button>
           <Input

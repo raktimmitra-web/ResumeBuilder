@@ -9,20 +9,22 @@ import { Button } from "../ui/button";
 import PersonalDetails from "../resumeFormComponents/PersonalDetails";
 import { useNavigate } from "react-router";
 import resumeStore from "@/store/resumeStore";
-import { submitResume } from "@/api/resumeRoutes";
+import { submitResume, updateResume } from "@/api/resumeRoutes";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ProgressBar from "../ProgressBar";
 import LivePreview from "../LivePreview";
+import toast from "react-hot-toast";
 
 const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
   const [step, setStep] = useState(1);
   const [liveData, setLiveData] = useState(null);
   const [isSubmission, setIsSubmission] = useState(false);
   const scrollRef = useRef(null);
-  const { setFormData, titleData, templateData } = resumeStore();
+  const { setFormData, titleData, templateData, setResumeId, resumeId } =
+    resumeStore();
   const navigate = useNavigate();
   const methods = useForm({
-    mode:"onChange",
+    mode: "onChange",
     resolver: yupResolver(resumeSchema),
   });
   const { handleSubmit, trigger, getValues, reset, watch } = methods;
@@ -46,8 +48,8 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
   }, [defaultValues, reset]);
 
   //validating the form step by step
-  const validated = async() =>{
-        let fieldsToValidate = [];
+  const validated = async () => {
+    let fieldsToValidate = [];
 
     switch (step) {
       case 1:
@@ -69,10 +71,9 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
         break;
     }
 
-    const isValid= await trigger(fieldsToValidate);
-    return isValid
-
-  }
+    const isValid = await trigger(fieldsToValidate);
+    return isValid;
+  };
   // handle previous step button
   const prevStep = () => {
     scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
@@ -81,7 +82,7 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
 
   //handle next step button
   const nextStep = async () => {
-    const isValid = await validated()
+    const isValid = await validated();
     if (isValid) {
       setStep((prev) => prev + 1);
       const values = getValues();
@@ -110,7 +111,7 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
         console.log(error);
       }
     }
-    if (step === 5 && isSubmission) {
+    if (!isEditing && step === 5 && isSubmission) {
       try {
         const response = await submitResume({
           titleData,
@@ -125,17 +126,38 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
       }
     }
   };
-  
+
   //handing auto-save during editing
-  const handleSaveAndDownload = async (data) =>{
-    const isValid = await validated ();
-    if(isValid && isEditing) {
-      const values = getValues()
-      await handleEdit (values)
-      setFormData(values)
-      navigate("/downloadPDF")
+  const handleSaveAndDownload = async (data) => {
+    const isValid = await validated();
+    if (!isEditing && isValid) {
+      const values = getValues();
+      if (!resumeId) {
+        console.log(titleData, templateData, "bbbbbb");
+        // Create new resume on first save
+        const response = await submitResume({
+          titleData,
+          templateData,
+          formData: values,
+        });
+        const newId = response.data.newResume._id;
+        setResumeId(newId);
+        toast.success("Resume created");
+      } else {
+        // Update existing resume on subsequent steps
+        await updateResume(resumeId, values);
+        toast.success("Progress saved");
+      }
+
+      navigate("/downloadPDF");
     }
-  }
+    if (isValid && isEditing) {
+      const values = getValues();
+      await handleEdit(values);
+      setFormData(values);
+      navigate("/downloadPDF");
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 ">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -158,11 +180,8 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
             </div>
 
             <div className="flex w-full justify-end gap-4 px-8 pt-6 border-t border-gray-200">
-              {
-                step<5 && isEditing &&(
-                  <Button onClick={handleSaveAndDownload}>Save & Download</Button>
-                )
-              }
+              <Button onClick={handleSaveAndDownload}>Save & Download</Button>
+
               {step > 1 && (
                 <Button
                   onClick={prevStep}
@@ -198,7 +217,7 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
           <h2 className="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">
             Live Preview
           </h2>
-          <LivePreview data={liveData} template={templateData}/>
+          <LivePreview data={liveData} template={templateData} />
         </div>
       </div>
     </div>

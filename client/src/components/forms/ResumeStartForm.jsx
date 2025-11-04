@@ -16,19 +16,20 @@ import resumeStore from "@/store/resumeStore";
 import { useNavigate } from "react-router";
 
 export function ResumeStartForm() {
-    const [resumeTitle, setResumeTitle] = useState("")
-    const {setTitleData} = resumeStore()
-    const navigate = useNavigate()
+  const [resumeTitle, setResumeTitle] = useState("");
+  const { setTitleData, setResumeId } = resumeStore();
+  const navigate = useNavigate();
 
-    //handling the submission of Resume Title
-    const handleSubmit = ()=>{
-        console.log("Resume Title :", resumeTitle)
-        setTitleData(resumeTitle)
-        if(resumeTitle) navigate("/choose-template")
-        else {
-        //show toast
-      }
+  //handling the submission of Resume Title
+  const handleSubmit = () => {
+    console.log("Resume Title :", resumeTitle);
+    setTitleData(resumeTitle);
+    setResumeId(null);
+    if (resumeTitle) navigate("/choose-template");
+    else {
+      //show toast
     }
+  };
   return (
     <Dialog>
       <form>
@@ -44,11 +45,17 @@ export function ResumeStartForm() {
           </DialogHeader>
           <div className="grid gap-4">
             <Label htmlFor="title">Resume Title</Label>
-            <Input id="title" name="title" defaultValue={resumeTitle} onChange={(e)=>setResumeTitle(e.target.value)} />
+            <Input
+              id="title"
+              name="title"
+              defaultValue={resumeTitle}
+              onChange={(e) => setResumeTitle(e.target.value)}
+            />
           </div>
           <DialogFooter>
-           
-            <Button type="submit" onClick={handleSubmit}>Start</Button>
+            <Button type="submit" onClick={handleSubmit}>
+              Start
+            </Button>
           </DialogFooter>
         </DialogContent>
       </form>

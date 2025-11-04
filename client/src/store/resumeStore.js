@@ -19,10 +19,12 @@ const resumeStore = create(
     templateData: {
       template: null,
     },
+    resumeId: null,
     setTitleData: (data) => set({ titleData: data }),
     setFormData: (data) => set({ formData: data }),
     setTemplateData: (data) => set({ templateData: data }),
-    clearResume : () => set({titleData:null,formData:null})
+    clearResume : () => set({titleData:null,formData:null}),
+    setResumeId : (id) =>set({resumeId:id})
   }),
    {name: "resume-store"}
 )

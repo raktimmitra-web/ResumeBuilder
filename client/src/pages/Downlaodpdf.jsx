@@ -1,16 +1,18 @@
 import axiosInstance from "@/api/axiosInstance";
 import { Button } from "@/components/ui/button";
 import resumeStore from "@/store/resumeStore";
-import { Download } from "lucide-react";
-import React from "react";
+import { Download, FileText, Loader2 } from "lucide-react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 
-const Downlaodpdf = () => {
+const DownloadPdf = () => {
   const { formData, templateData } = resumeStore();
-  const navigate = useNavigate()
-  console.log(formData, templateData, "aaaaaaaaaaa");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const downloadPdf = async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.post(
         "/resume/generate-pdf",
@@ -18,50 +20,79 @@ const Downlaodpdf = () => {
         { responseType: "blob" }
       );
 
+      // Create a blob from the PDF
       const blob = new Blob([response.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(blob);
+
+      // Create a temporary link to trigger download
       const link = document.createElement("a");
       link.href = url;
       link.download = "resume.pdf";
       link.click();
-      toast.success("PDF downloaded")
+
+      // Cleanup and feedback
+      window.URL.revokeObjectURL(url);
+      toast.success("PDF downloaded successfully!");
     } catch (error) {
       console.error("PDF generation failed:", error);
-      toast.error("Download error")
+      toast.error("Failed to download PDF");
+    } finally {
+      setLoading(false);
     }
   };
-  const handleNavigate = async () => {
-    navigate("/dashboard")
+
+  const handleNavigate = () => {
+    navigate("/dashboard");
   };
+
   return (
-    <div className=" flex justify-center items-center min-h-screen">
-      <div className="max-w-2xl w-full mx-auto px-12 py-8 border rounded-2xl shadow hover:shadow-xl">
-        <div className="flex flex-col pb-8">
-          <p className="text-4xl  font-bold text-gray-800 mb-2 text-center">
-            Download Your PDF
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-gray-200 px-4">
+      <div className="w-full max-w-2xl bg-white shadow-xl rounded-2xl border border-gray-100 p-10 ">
+
+        <div className="flex flex-col items-center text-center space-y-6">
+          <div className="bg-blue-100 p-4 rounded-full">
+            <FileText className="text-blue-600 w-10 h-10" />
+          </div>
+
+          <h1 className="text-3xl  font-bold text-gray-800">
+            Your Resume Is Ready!
+          </h1>
+
+          <p className="text-gray-500 max-w-md">
+            Your resume has been generated successfully. You can download your
+            PDF or go back to your dashboard to manage your resumes.
           </p>
-          <p className="text-gray-500 text-center">
-            Your document is ready. You can download it or return to your
-            dashboard.
-          </p>
+
+          <div className="flex flex-wrap justify-center gap-6 mt-4">
+            <Button
+              onClick={downloadPdf}
+              disabled={loading}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg shadow-md transition-all flex items-center gap-2 disabled:opacity-70"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="animate-spin w-5 h-5" /> Downloading...
+                </>
+              ) : (
+                <>
+                  <Download className="w-5 h-5" /> Download PDF
+                </>
+              )}
+            </Button>
+
+            <Button
+              onClick={handleNavigate}
+              className="bg-gray-800 hover:bg-gray-900 text-white font-medium px-6 py-3 rounded-lg shadow-md transition-all"
+            >
+              Go To Dashboard
+            </Button>
+          </div>
         </div>
-        <div className="flex justify-center gap-8 ">
-          <Button
-            onClick={downloadPdf}
-            className="bg-gray-500 hover:bg-gray-700 p-6"
-          >
-            Download Pdf{" "}
-            <span>
-              <Download />
-            </span>
-          </Button>
-          <Button onClick={handleNavigate} className={"bg-gray-700 p-6"}>
-            Go To Dashboard
-          </Button>
-        </div>
+
+        
       </div>
     </div>
   );
 };
 
-export default Downlaodpdf;
+export default DownloadPdf;

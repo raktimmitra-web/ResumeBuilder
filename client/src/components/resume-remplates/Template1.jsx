@@ -1,7 +1,6 @@
 import React from "react";
 
 const Template1 = React.forwardRef(({ resumeData }, ref) => {
-  console.log(resumeData);
   const {
     personalInfo,
     summary,

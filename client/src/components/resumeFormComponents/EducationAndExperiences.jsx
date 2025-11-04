@@ -45,12 +45,12 @@ const EducationAndExperiences = ({ methods }) => {
             }
             className={"bg-blue-500 hover:bg-blue-400"}
           >
-            <CirclePlus />{" "}
+            <CirclePlus />{" "} Add Educations
           </Button>
         </div>
         {eduFields.map((item, index) => (
           <div key={index} className=" flex flex-col gap-y-1">
-            <Button onClick={removeEdu} className="w-fit self-end bg-accent hover:bg-accent cursor-pointer">
+            <Button onClick={() => removeEdu(index)} className="w-fit self-end bg-accent hover:bg-accent cursor-pointer">
               <CircleX className="text-red-600 hover:bg-red-400 "/>
             </Button>
             <Input
@@ -130,12 +130,12 @@ const EducationAndExperiences = ({ methods }) => {
             }
             className={"bg-blue-500 hover:bg-blue-400"}
           >
-            <CirclePlus />{" "}
+            <CirclePlus />{" "} Add Experiences
           </Button>
         </div>
         {expFields.map((item, index) => (
           <div key={index} className="flex flex-col gap-y-1  ">
-            <Button onClick={removeExp} className="w-fit self-end bg-accent hover:bg-accent cursor-pointer">
+            <Button onClick={()=>removeExp(index)} className="w-fit self-end bg-accent hover:bg-accent cursor-pointer">
               <CircleX className="text-red-600 hover:bg-red-400 "/>
             </Button>
 
