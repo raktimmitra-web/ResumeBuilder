@@ -134,7 +134,6 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
       const values = getValues();
       if (!resumeId) {
         console.log(titleData, templateData, "bbbbbb");
-        // Create new resume on first save
         const response = await submitResume({
           titleData,
           templateData,
@@ -144,7 +143,6 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
         setResumeId(newId);
         toast.success("Resume created");
       } else {
-        // Update existing resume on subsequent steps
         await updateResume(resumeId, values);
         toast.success("Progress saved");
       }

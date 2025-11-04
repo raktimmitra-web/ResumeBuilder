@@ -52,19 +52,21 @@ const OtherDetails = ({ methods }) => {
         <div className="">
           {skillFields.map((item, index) => (
             <div key={index} className="flex  gap-3 ">
-              <Input
-                id="skill"
-                name={`skills[${index}]`}
-                type="text"
-                register={register}
-                errors={errors}
-                placeholder={`Enter skill ${index + 1}`}
-                className="flex-1"
-              />
+              <div className="flex-1">
+                <Input
+                  id="skill"
+                  name={`skills[${index}]`}
+                  type="text"
+                  register={register}
+                  errors={errors}
+                  placeholder={`Enter skill ${index + 1}`}
+                  className=""
+                />
+              </div>
               <Button
-                onClick={()=>removeSkill(index)}
+                onClick={() => removeSkill(index)}
                 type="button"
-                className="  text-red-800 p-2 rounded-md bg-red-300 hover:bg-red-200"
+                className="  text-red-800 p-2 rounded-md bg-red-300 hover:bg-red-200 flex-none "
                 title="Remove skill"
               >
                 <CircleX className="w-5 h-5" />
@@ -88,26 +90,25 @@ const OtherDetails = ({ methods }) => {
 
         <div className="space-y-3">
           {achievmentFields.map((item, index) => (
-            <div
-              key={index}
-              className="flex gap-3 w-full"
-            >
-              <Input
+            <div key={index} className="flex gap-3 w-full">
+              <div className="flex-1">
+                <Input
                 id="achievment"
                 name={`achievments[${index}]`}
                 type="text"
                 register={register}
                 errors={errors}
                 placeholder={`Enter achievement ${index + 1}`}
-                className="flex-1 "
+                className=""
               />
+              </div>
               <Button
-                onClick={()=>removeAchievment(index)}
+                onClick={() => removeAchievment(index)}
                 type="button"
                 className="  text-red-800 p-2 rounded-md bg-red-300 hover:bg-red-200"
                 title="Remove achievement"
               >
-                <CircleX className="w-5 h-5" />
+                <CircleX className="w-5 h-5 flex-none" />
               </Button>
             </div>
           ))}
@@ -128,24 +129,24 @@ const OtherDetails = ({ methods }) => {
 
         <div className="space-y-3">
           {languageFields.map((item, index) => (
-            <div
-              key={index}
-              className="flex gap-3"
-            >
-              <Input
+            <div key={index} className="flex gap-3">
+             <div className="flex-1">
+               <Input
                 id="language"
                 name={`languages[${index}]`}
                 type="text"
                 register={register}
                 errors={errors}
                 placeholder={`Enter language ${index + 1}`}
-                className="flex-1"
+                className=""
               />
+             </div>
               <Button
-                onClick={()=>removeLanguage(index)}
+                onClick={() => removeLanguage(index)}
                 type="button"
                 className="  text-red-800 p-2 rounded-md bg-red-300 hover:bg-red-200"
-s                title="Remove language"
+                s
+                title="Remove language"
               >
                 <CircleX className="w-5 h-5" />
               </Button>
