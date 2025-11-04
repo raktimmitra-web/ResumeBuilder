@@ -21,7 +21,7 @@ export const login = async (req, res) => {
   res.cookie("refreshToken", refreshToken, {
     secure: true,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
     maxAge: 24 * 60 * 60 * 1000,
   });  //sending refresh token as cookie
   return res.status(200).json({ message: "User logged In", accessToken, user });
@@ -47,7 +47,7 @@ export const signup = async (req, res) => {
   res.cookie("refreshToken", refreshToken, {
     secure: true,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
     maxAge: 24 * 60 * 60 * 1000,
   });
   return res
@@ -58,7 +58,7 @@ export const logout = async (req, res) => {
   res.clearCookie("refreshToken", {
     secure: true,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
   });
   return res.json({ message: "Logged Out Successfully" });
 };
