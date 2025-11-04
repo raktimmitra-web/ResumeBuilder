@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { Download, FilePenLine, Trash2 } from "lucide-react";
+import { Download, FilePenLine, Loader, Trash2 } from "lucide-react";
 import {
   deleteResume,
   getAllResumeByUserId,
@@ -14,6 +14,7 @@ import DialogBox from "./DialogBox";
 
 const ResumeSection = () => {
   const [allResumes, setAllResumes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { setFormData, setTemplateData } = resumeStore();
   const [selectedResumeId, setSelectedResumeId] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -32,8 +33,7 @@ const ResumeSection = () => {
     } catch (error) {
       console.log(error);
       toast.success("Issue during deletion");
-    }
-    finally {
+    } finally {
       setIsDialogOpen(false);
       setSelectedResumeId(null);
     }
@@ -60,10 +60,20 @@ const ResumeSection = () => {
         setAllResumes(response.data.resume);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false); 
       }
     };
     getAllResume();
   }, []);
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-[40vh]">
+        <div className="animate-spin "><Loader/></div>
+      </div>
+    );
+
   if (allResumes.length === 0)
     return (
       <div className="flex flex-col items-center justify-center h-[30vh] gap-y-8">

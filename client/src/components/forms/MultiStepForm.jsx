@@ -163,7 +163,13 @@ const MultiStepForm = ({ defaultValues, isEditing, handleEdit }) => {
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col bg-white shadow-lg rounded-xl border border-gray-200 p-8 space-y-10 max-h-[85vh]"
         >
-          <ProgressBar step={step} />
+          
+            <div className="w-full overflow-auto">
+              <div className="min-w-[300px] sm:min-w-0">
+                <ProgressBar step={step} />
+              </div>
+            </div>
+        
 
           <div
             className="flex-1 max-w-2xl space-y-10 overflow-y-auto "
