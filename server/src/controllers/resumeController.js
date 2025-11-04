@@ -3,7 +3,6 @@ import puppeteer from "puppeteer";
 import { generateResumeHTML } from "../templates/generateResumeHTML.js";
 
 export const addResume = async (req, res) => {
-  console.log("ccc",req.body)
   const {
     title,
     personalInfo,

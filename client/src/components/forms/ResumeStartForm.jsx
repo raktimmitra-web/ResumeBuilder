@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "../ui/button";
 import resumeStore from "@/store/resumeStore";
 import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 export function ResumeStartForm() {
   const [resumeTitle, setResumeTitle] = useState("");
@@ -27,7 +28,7 @@ export function ResumeStartForm() {
     setResumeId(null);
     if (resumeTitle) navigate("/choose-template");
     else {
-      //show toast
+      toast.error("Add Resume Title")
     }
   };
   return (

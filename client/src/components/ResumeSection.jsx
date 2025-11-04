@@ -76,11 +76,11 @@ const ResumeSection = () => {
       </div>
     );
   return (
-    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6">
+    <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mt-6 ">
       {allResumes.map((resume) => (
         <div
           key={resume._id}
-          className="bg-white shadow-md hover:shadow-xl transition-shadow duration-300 rounded-xl p-5 border border-gray-100 flex flex-col justify-between"
+          className="bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-xl p-5 border border-gray-100 flex flex-col justify-between"
         >
           <div>
             <h1 className="text-lg font-semibold text-gray-800 mb-1">
