@@ -10,7 +10,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(       
   cors({
-    origin: "https://resumine-resume.netlify.app/",
+    origin: "https://resumine-resume.netlify.app",
     credentials:true
   })
 );
