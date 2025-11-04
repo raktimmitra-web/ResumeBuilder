@@ -1,6 +1,7 @@
 import Resume from "../models/resumeModel.js";
-import puppeteer from "puppeteer";
 import { generateResumeHTML } from "../templates/generateResumeHTML.js";
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 
 export const addResume = async (req, res) => {
   const {
@@ -94,12 +95,15 @@ export const getResumeDataByResumeId = async (req, res) => {
 export const downloadResume = async (req, res) => {
   try {
     const { resumeData, template } = req.body;
-
     const html = generateResumeHTML(resumeData, template);
 
+    // Launch Chromium using Sparticuz version
     const browser = await puppeteer.launch({
-      headless: "new", 
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(), // 👈 key line
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: "networkidle0" });
