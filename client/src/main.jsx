@@ -6,11 +6,11 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import AddResume from "./pages/AddResume";
-import Login from "./pages/login";
 import SignUp from "./pages/SignUp";
 import EditResume from "./pages/EditResume";
 import ChooseTemplate from "./pages/ChooseTemplate";
 import Downlaodpdf from "./pages/Downlaodpdf";
+import Login from "./pages/Login";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
